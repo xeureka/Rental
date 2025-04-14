@@ -11,8 +11,7 @@ const genreSchema = new mongoose.Schema({
         maxlength:50
     }
 })
-
-
+ 
 // movie model
 const Genre = new mongoose.model('Genre',genreSchema);
 

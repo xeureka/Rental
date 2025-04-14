@@ -8,17 +8,25 @@ const Genre = require('../models/movieSchema')
 
 
 // Getting all the list of geners
-router.get('/',(req,res) =>{
-    
-    res.send(catagories)
+router.get('/',async (req,res) =>{
+    const genres = await Genre.find()
+    res.send(genres)
 })
 
 // Getting a single genre
-router.get('/:id',(req,res) =>{
+router.get('/:id',async (req,res) =>{
     const id = req.params.id;
-    
-    const genra = catagories.find(g => g.id === parseInt(id));
-    req.send(genra)
+
+    try {
+        const result = await Genre.findById(id)
+        console.log(result)
+        res.send(result)
+
+    } catch (error) {
+        console.log('Error occured, ',error.message)
+        return
+    }
+
 })
 
 
@@ -38,7 +46,7 @@ const validateGenre = (req,res,next) => {
     next()
 }
 
-// creating a new genra
+// creating a new genra : here is what the real play comes
 
 router.post('/',validateGenre,(req,res) => {
 

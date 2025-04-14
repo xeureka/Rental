@@ -5,7 +5,6 @@ require('dotenv').config()
 
 const express = require('express')
 const geners = require('./routes/genres')
-const mongoose = require('mongoose')
 const connectDB = require('./models/connection')
 
 const app = express()

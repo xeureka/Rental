@@ -3,18 +3,13 @@
 const express = require('express')
 const router = express.Router()
 const Joi = require('joi')
+const mongoose = require('mongoose')
+const Genre = require('../models/movieSchema')
 
-// List of movies
-
-const catagories = [
-    {id:1, genre:'Romance'},
-    {id:2, genre: 'Action'},
-    {id:3, genre: 'Comedy'}
-]
 
 // Getting all the list of geners
-
 router.get('/',(req,res) =>{
+    
     res.send(catagories)
 })
 
@@ -90,3 +85,4 @@ router.delete('/:id',(req,res) =>{
 })
 
 module.exports = router
+

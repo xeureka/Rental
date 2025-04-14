@@ -96,9 +96,4 @@ router.delete('/:id', async (req,res) =>{
     }
 })
 
-
-// remove customer
-
-
-
 module.exports = router

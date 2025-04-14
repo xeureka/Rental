@@ -13,6 +13,8 @@ router.get('/',async (req,res) =>{
     res.send(genres)
 })
 
+
+
 // Getting a single genre
 router.get('/:id',async (req,res) =>{
     const id = req.params.id;
@@ -65,6 +67,7 @@ router.post('/',validateGenre,async (req,res) => {
     }
 })
 
+
 // updating an existing genre (we will gonna use the findByIdAndUpdate)
 router.put('/:id',validateGenre,async (req,res) =>{
 
@@ -87,7 +90,6 @@ router.put('/:id',validateGenre,async (req,res) =>{
         
 
         res.send(updatedName)
-
         
     } catch (error) {
         console.log('Error: ',error.message)
@@ -111,8 +113,7 @@ router.delete('/:id', async (req,res) =>{
     }
     
 })
-
-
+     
 
 module.exports = router
 

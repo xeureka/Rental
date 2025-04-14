@@ -1,35 +1,8 @@
-const genreSchema = Joi.object({
-    name: Joi.string().min(2).max(15).required()
-})
+// build and end point to manage the customers
 
-// genre schema validator middleware
-const validateGenre = (req,res,next) => {
-
-    const {error} = genreSchema.validate(req.body);
-
-    if (error){
-        return res.status(400).send({message: error.details[0].message})
-    }
-
-    next()
-}
-
-
-router.post('/',validateGenre,async (req,res) => {
-
-    try {
-
-        const newGenre = new Genre({
-            name: req.body.name
-        })
-
-        const result = await newGenre.save()
-        
-        res.send(result)
-
-    } catch (error) {
-        res.status(400).send(error.message)
-        console.log(error)
-    }
-})
-
+// (isGold,name,phone)
+// for customers too
+// see customers (all and specific)
+// add customer
+// update customer
+// remove customer

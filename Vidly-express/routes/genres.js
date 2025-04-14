@@ -104,7 +104,6 @@ router.delete('/:id', async (req,res) =>{
     try {
         const result = await Genre.findByIdAndDelete(id);
 
-        console.log('Deleted course ',result)
         res.send(result)
         
     } catch (error) {

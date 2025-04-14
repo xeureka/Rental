@@ -32,3 +32,4 @@ router.post('/',validateGenre,async (req,res) => {
         console.log(error)
     }
 })
+

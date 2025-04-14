@@ -9,7 +9,7 @@ const Genre = require('../models/movieSchema')
 
 // Getting all the list of geners
 router.get('/',async (req,res) =>{
-    const genres = await Genre.find()
+    const genres = await Genre.find().sort('name')
     res.send(genres)
 })
 
@@ -37,7 +37,7 @@ const genreSchema = Joi.object({
     name: Joi.string().min(2).max(15).required()
 })
 
-// genre schema validator middleware
+// genre validator middleware
 const validateGenre = (req,res,next) => {
 
     const {error} = genreSchema.validate(req.body);

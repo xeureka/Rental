@@ -32,7 +32,7 @@ router.get('/:id',async (req,res) =>{
 
 // genre input schema
 const genreSchema = Joi.object({
-    genre: Joi.string().min(2).max(15).required()
+    name: Joi.string().min(2).max(15).required()
 })
 
 // genre schema validator middleware
@@ -46,51 +46,73 @@ const validateGenre = (req,res,next) => {
     next()
 }
 
-// creating a new genra : here is what the real play comes
 
-router.post('/',validateGenre,(req,res) => {
+router.post('/',validateGenre,async (req,res) => {
 
-    const newGenre = {
-        id: catagories.length + 1,
-        genre: req.body.genre
+    try {
+
+        const newGenre = new Genre({
+            name: req.body.name
+        })
+
+        const result = await newGenre.save()
+        
+        res.send(result)
+
+    } catch (error) {
+        res.status(400).send(error.message)
+        console.log(error)
     }
-
-    catagories.push(newGenre)
-    res.send(catagories)
 })
 
-// updating an existing genre
-
-router.put('/:id',validateGenre,(req,res) =>{
+// updating an existing genre (we will gonna use the findByIdAndUpdate)
+router.put('/:id',validateGenre,async (req,res) =>{
 
     const id = req.params.id;
-    const newGenre = catagories.find(g => g.id === parseInt(id));
+    const newName = req.body.name;
+    console.log(newName)
 
-    if (!newGenre){
-        return res.send(400).send('Genre Not Found')
+    
+    try {
+
+        const updatedName = await Genre.findByIdAndUpdate(
+            id,
+            {name: newName},
+            {new: true, runValidators: true}
+        )
+
+        if (!updatedName){
+            return res.status(404).send('Genre Not Found')
+        }
+        
+
+        res.send(updatedName)
+
+        
+    } catch (error) {
+        console.log('Error: ',error.message)
     }
 
-    newGenre.genre = req.body.genre;
-
-    res.send(catagories);
 })
 
 // delete existing genre
+router.delete('/:id', async (req,res) =>{
 
-router.delete('/:id',(req,res) =>{
-    
-    const id = req.params.id
-    const genra = catagories.find(g => g.id === parseInt(id))
+    const id = req.params.id;
 
-    if(!genra){
-        return res.send(400).send('Genre Not Found')
+    try {
+        const result = await Genre.findByIdAndDelete(id);
+
+        console.log('Deleted course ',result)
+        res.send(result)
+        
+    } catch (error) {
+        console.log(error)
     }
-
-    const index = catagories.indexOf(genra);
-
-    catagories.splice(index,1);
-    res.send(catagories)
+    
 })
+
+
 
 module.exports = router
 

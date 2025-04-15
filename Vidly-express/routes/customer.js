@@ -32,8 +32,6 @@ router.post('/',async (req,res) =>{
 
     try {
 
-        const {isGold,name,phone} = req.body;
-
         const newCustomer = new Customer({
             isGold: req.body.isGold,
             name: req.body.name,
@@ -49,7 +47,7 @@ router.post('/',async (req,res) =>{
     }
 })
 
-// updaet customer
+// update customer
 
 router.put('/:id', async (req,res) => {
 

@@ -6,6 +6,7 @@ require('dotenv').config()
 const express = require('express')
 const geners = require('./routes/genres')
 const customer = require('./routes/customer')
+const Movies = require('./routes/movies')
 const connectDB = require('./models/connection')
 
 
@@ -14,6 +15,7 @@ app.use(express.json())
 
 app.use('/api/geners',geners)
 app.use('/api/customers',customer)
+app.use('/api/movies',Movies)
 
 connectDB()
 

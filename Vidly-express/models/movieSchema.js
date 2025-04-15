@@ -1,19 +1,30 @@
 
 
+// (id,title,genre,numberInStock,dailyrentalRate)
+
 const mongoose = require('mongoose')
+const genreSchema = require('./genreSchema')
+const Genre = require('./genreSchema')
 
-// movie schema
-const genreSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required:true,
-        minlength:5,
-        maxlength:50
-    }
+
+
+const movieSchema = new mongoose.Schema({
+
+    title: {type:String,required:true},
+    genre: {
+        type: genreSchema,
+        ref: Genre
+    },
+
+    numberInStock: {type:Number,requied:true},
+    dailyRentalRate: {type:Number,required: true}
+
 })
- 
-// movie model
-const Genre = new mongoose.model('Genre',genreSchema);
 
 
-module.exports = Genre
+const Movie = mongoose.model('Movie',movieSchema);
+
+
+module.exports = Movie;
+
+

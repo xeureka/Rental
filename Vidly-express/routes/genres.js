@@ -3,7 +3,7 @@
 const express = require('express')
 const router = express.Router()
 const Joi = require('joi')
-const Genre = require('../models/movieSchema')
+const Genre = require('../models/genreSchema')
 
 
 // Getting all the list of geners

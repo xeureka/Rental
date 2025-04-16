@@ -4,12 +4,22 @@ const express = require('express')
 const router = express.Router()
 const Joi = require('joi')
 const Genre = require('../models/genreSchema')
+const mongoose = require('mongoose')
 
 
 // Getting all the list of geners
 router.get('/',async (req,res) =>{
-    const genres = await Genre.find().sort('name')
-    res.send(genres)
+
+    try {
+
+        const result = await Genre.find()
+
+        res.send(result)
+        
+    } catch (error) {
+        console.log('Error: ',error.message)
+    }
+
 })
 
 

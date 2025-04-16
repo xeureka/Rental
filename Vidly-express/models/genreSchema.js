@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose')
 
-// movie schema
+// genre schema
 const genreSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -12,11 +12,13 @@ const genreSchema = new mongoose.Schema({
     }
 })
  
-// movie model
+// genre model
 const Genre = new mongoose.model('Genre',genreSchema);
 
 
+
+
 module.exports = {
-    genreSchema,
-    Genre
+    Genre,
+    genreSchema
 }

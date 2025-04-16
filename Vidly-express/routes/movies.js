@@ -4,74 +4,49 @@
 
 const express = require('express')
 const router = express.Router()
+const {Genre} = require('../models/genreSchema')
 const Movies = require('../models/movieSchema')
 
-
-router.get('/',async (req,res) =>{
-
+router.get('/', async (req,res) => {
     try {
-
         const result = await Movies.find()
-
         res.send(result)
-        
     } catch (error) {
-        console.log('Error opening the document: ',error.message)
+        console.log('Error getting data, ',error.message)
     }
-    
 })
 
-// (id,title,genre,numberInStock,dailyrentalRate)
 
-router.post('/', async (req,res) => {
+router.post('/', async (req,res) =>{
+
+   
+    const genre = await Genre.findById(req.body.genreId);
+    
+
+    if (!genre) {
+        return res.status(400).send('Invalid genre.')
+    }
 
     try {
 
-        const newMovie = new Movies({
+        let newMovie = new Movies({
             title: req.body.title,
-            genre: req.body.genre,
-            numberInStock : req.body.numberInStock,
+            genre: {
+                _id: genre._id,
+                name: genre.name
+            },
+            numberInStock: req.body.numberInStock,
             dailyRentalRate: req.body.dailyRentalRate
         })
 
-        await newMovie.save()
-
-        res.send(newMovie)
-        
-    } catch (error) {
-        console.log('something went wrong, ',error.message)
-    }
-
-})
-
-
-
-
-router.delete('/:id', async (req,res) => {
-
-    try {
-
-        const id = req.params.id
-
-        const result = await Movies.findByIdAndDelete(id)
+        const result = await newMovie.save()
 
         res.send(result)
-
-
         
     } catch (error) {
-        console.log('Error finding the Id: ',error.message)
+        console.log('Error creating, ',error.message)
     }
-
-
 })
 
 
 module.exports = router
-
-
-/**
- * post new movies
- * put existing movie
- * delete movie collection
- */

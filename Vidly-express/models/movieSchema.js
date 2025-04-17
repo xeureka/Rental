@@ -8,7 +8,6 @@ const Joi = require('joi')
 
 
 const movieSchema = new mongoose.Schema({
-
     title: {
         type: String,
         required: true,

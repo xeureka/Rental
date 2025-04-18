@@ -37,4 +37,3 @@ router.post('/', async (req,res) => {
 
 module.exports = router
 
-// setting response headers

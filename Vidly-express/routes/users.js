@@ -4,6 +4,8 @@ const express = require('express')
 const router = express.Router()
 const Users = require('../models/userSchema')
 const bcrypt = require('bcryptjs')
+const config = require('config')
+const jwt = require('jsonwebtoken')
 
 
 router.post('/', async (req,res) => {
@@ -27,8 +29,11 @@ router.post('/', async (req,res) => {
     
         await newUser.save()
 
+        const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
+        
+
     
-        res.send(_.pick(newUser,['name','email']))
+        res.header('x-auth-token',token).send(_.pick(newUser,['_id','name','email']))
 
     } catch (error) {
         console.log('Error registering a user: ',error.message)

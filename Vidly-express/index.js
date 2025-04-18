@@ -1,7 +1,4 @@
 
-// Vidly movie rental app simple backend
-
-
 require('dotenv').config()
 const config = require('config')
 const express = require('express')
@@ -18,7 +15,7 @@ const app = express()
 app.use(express.json())
 
 if (!config.get('jwtPrivateKey')){
-    console.error('FATAL ERROR: jwtPrivateKey is not defined.')
+    console.log('FATAL ERROR: jwtPrivateKey not defined.')
     process.exit(1)
 }
 

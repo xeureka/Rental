@@ -1,38 +1,38 @@
 
-
-const _ = require('lodash') 
+const Users = require('../models/userSchema')
 const express = require('express')
 const mongoose = require('mongoose')
 const router = express.Router()
-const Users = require('../models/userSchema')
+const _ = require('lodash')
 const bcrypt = require('bcryptjs')
 
 
-router.post('/', async (req,res) => {
+router.post('/',async (req,res) => {
+
+    const user = await Users.findOne({email: req.body.email})
+
+    if (!user){
+        return res.status(400).send('Invalid username or password .')
+    }
 
     try {
 
-        let user = await Users.findOne({email: req.body.email})
+        const salt = await bcrypt.genSalt(10);
 
-        if (!user) return res.status(400).send('Invalid email or password !')
-        
+        const validPassword = await bcrypt.compare(req.body.password, user.password)
 
-       const validPassword = await bcrypt.compare(req.body.password,user.password)
-        
-        if (!validPassword){
-            return res.status(400).send('Invalid email or password !')
+        if (!validPassword) {
+            return res.status(400).send('Invalid username or password !')
         }
-        // before this we need to create a jwt
 
-        // const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
-        const token = user.generateToken()
-
-        res.send(token)
+        res.send(true)
         
     } catch (error) {
-        console.log('Error registering a user: ',error.message)
+        console.error('Error authentication user, ',error.message)
     }
-
 })
 
+
 module.exports = router
+
+// what the fuck we do in this lecture we do an authentication man

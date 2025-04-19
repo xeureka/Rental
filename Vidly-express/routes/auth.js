@@ -5,7 +5,8 @@ const mongoose = require('mongoose')
 const router = express.Router()
 const _ = require('lodash')
 const bcrypt = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 router.post('/',async (req,res) => {
 
@@ -25,7 +26,12 @@ router.post('/',async (req,res) => {
             return res.status(400).send('Invalid username or password !')
         }
 
-        res.send(true)
+        // instead of responding with bool we need jwt here
+
+        const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
+
+        res.send(token)
+
         
     } catch (error) {
         console.error('Error authentication user, ',error.message)
@@ -34,5 +40,3 @@ router.post('/',async (req,res) => {
 
 
 module.exports = router
-
-// what the fuck we do in this lecture we do an authentication man

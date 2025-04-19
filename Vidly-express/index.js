@@ -14,6 +14,11 @@ const connectDB = require('./models/connection')
 const app = express()
 app.use(express.json())
 
+if (!config.get('jwtPrivateKey')){
+    console.error('FATAL ERROR: jwt private key is not defined. ')
+    process.exit(1)
+}
+
 
 app.use('/api/geners',Genre)
 app.use('/api/customers',customer)
@@ -29,4 +34,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT,() =>{
     console.log(`Server Running on port ${PORT}. `)
 })
-

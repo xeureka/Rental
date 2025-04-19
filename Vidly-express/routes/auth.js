@@ -26,7 +26,7 @@ router.post('/',async (req,res) => {
             return res.status(400).send('Invalid username or password !')
         }
 
-        // instead of responding with bool we need jwt here
+        // when the user logged in we genereate jwt and send it to the body of the response
 
         const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
 
@@ -40,3 +40,5 @@ router.post('/',async (req,res) => {
 
 
 module.exports = router
+
+// lets assume when the user register they are logged in too

@@ -5,7 +5,8 @@ const mongoose = require('mongoose')
 const router = express.Router()
 const _ = require('lodash')
 const bcrypt = require('bcryptjs')
-// api end point = /api/users
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 
 router.post('/',async (req,res) => {
@@ -27,16 +28,13 @@ router.post('/',async (req,res) => {
             password: await bcrypt.hash(req.body.password,salt)
         })
 
-        
-
         await user.save()
 
+        const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
 
-        res.send({
-            name: user.name,
-            email: user.email
-        })
+        res.header('x-auth-token',token).send(_.pick(user,['_id','name','email']))
         
+
     } catch (error) {
         console.error('Error Registering a user, ',error.message)
         res.status(500).send('Internal Server Error !')

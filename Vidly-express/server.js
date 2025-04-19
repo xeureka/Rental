@@ -1,6 +1,18 @@
 
 
-// we send the jwt token when the user logged in
+const myHonda = {
+    color: "red",
+    wheels: 4,
+    engine: {
+        cylinders: 4,
+        size: 2.2
+    }
+}
 
 
-// now wen want to send the jwt token to manage session or other things when the user registers in the response header
+myHonda.printCar = function() {
+    console.log(`My car has color ${this.color} and it is a ${this.wheels} drive`)
+}
+
+
+myHonda.printCar()

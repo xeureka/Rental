@@ -28,7 +28,7 @@ router.post('/',async (req,res) => {
 
         // when the user logged in we genereate jwt and send it to the body of the response
 
-        const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
+        const token = user.generateAuthToken()
 
         res.send(token)
 

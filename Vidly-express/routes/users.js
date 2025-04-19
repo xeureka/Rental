@@ -17,6 +17,8 @@ router.post('/',async (req,res) => {
         return res.status(400).send('User Already registered !')
     }
 
+    // we wnat to add some kind of method to generate token
+
     try {
 
 
@@ -30,7 +32,7 @@ router.post('/',async (req,res) => {
 
         await user.save()
 
-        const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
+        const token = user.generateAuthToken()
 
         res.header('x-auth-token',token).send(_.pick(user,['_id','name','email']))
         
@@ -44,3 +46,5 @@ router.post('/',async (req,res) => {
 
 
 module.exports = router
+
+

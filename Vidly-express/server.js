@@ -1,3 +1,0 @@
-
-
-// Hashing password

@@ -1,12 +1,12 @@
 
+
 const _ = require('lodash') 
 const express = require('express')
 const mongoose = require('mongoose')
 const router = express.Router()
 const Users = require('../models/userSchema')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const config = require('config')
+
 
 router.post('/', async (req,res) => {
 
@@ -22,10 +22,10 @@ router.post('/', async (req,res) => {
         if (!validPassword){
             return res.status(400).send('Invalid email or password !')
         }
-
         // before this we need to create a jwt
 
-        const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
+        // const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
+        const token = user.generateToken()
 
         res.send(token)
         
@@ -36,4 +36,3 @@ router.post('/', async (req,res) => {
 })
 
 module.exports = router
-

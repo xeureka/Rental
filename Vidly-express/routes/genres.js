@@ -1,5 +1,5 @@
 
-
+const auth = require('../middleware/auth')
 const express = require('express')
 const router = express.Router()
 const Joi = require('joi')
@@ -58,7 +58,7 @@ const validateGenre = (req,res,next) => {
 }
 
 
-router.post('/',validateGenre,async (req,res) => {
+router.post('/',auth,async (req,res) => {
 
 
     try {
@@ -79,7 +79,7 @@ router.post('/',validateGenre,async (req,res) => {
 
 
 // updating an existing genre (we will gonna use the findByIdAndUpdate)
-router.put('/:id',validateGenre,async (req,res) =>{
+router.put('/:id',auth,async (req,res) =>{
 
     const id = req.params.id;
     const newName = req.body.name;
@@ -108,7 +108,7 @@ router.put('/:id',validateGenre,async (req,res) =>{
 })
 
 // delete existing genre
-router.delete('/:id', async (req,res) =>{
+router.delete('/:id',auth, async (req,res) =>{
 
     const id = req.params.id;
 

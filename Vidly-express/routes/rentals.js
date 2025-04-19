@@ -5,6 +5,7 @@ const router = express.Router()
 const Movies = require('../models/movieSchema')
 const Customer = require('../models/customerSchema')
 const Rentals = require('../models/rentalSchema')
+const auth = require('../middleware/auth')
 
 
 router.get('/', async (req,res) =>{
@@ -15,7 +16,7 @@ router.get('/', async (req,res) =>{
 })
 
 
-router.post('/',async (req,res) =>{
+router.post('/',auth,async (req,res) =>{
 
     const customers = await Customer.findById(req.body.customerId)
     if(!customers)  return res.send(400).send('Customer Not Found, ')

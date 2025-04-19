@@ -5,6 +5,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const router = express.Router()
 const Customer = require('../models/customerSchema')
+const auth = require('../middleware/auth')
 
 // all customer list
 router.get('/', async (req,res) =>{
@@ -28,7 +29,7 @@ router.get('/:id',async (req,res) =>{
 })
 
 // create new customer
-router.post('/',async (req,res) =>{
+router.post('/',auth,async (req,res) =>{
 
     try {
 
@@ -49,7 +50,7 @@ router.post('/',async (req,res) =>{
 
 // update customer
 
-router.put('/:id', async (req,res) => {
+router.put('/:id',auth, async (req,res) => {
 
     const id = req.params.id;
 
@@ -79,7 +80,7 @@ router.put('/:id', async (req,res) => {
 })
 
 
-router.delete('/:id', async (req,res) =>{
+router.delete('/:id',auth, async (req,res) =>{
 
     try {
 

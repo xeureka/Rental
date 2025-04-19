@@ -6,6 +6,7 @@ const express = require('express')
 const router = express.Router()
 const {Genre} = require('../models/genreSchema')
 const Movies = require('../models/movieSchema')
+const auth = require('../middleware/auth')
 
 router.get('/', async (req,res) => {
     try {
@@ -17,7 +18,7 @@ router.get('/', async (req,res) => {
 })
 
 
-router.post('/', async (req,res) =>{
+router.post('/',auth, async (req,res) =>{
 
    
     const genre = await Genre.findById(req.body.genreId);

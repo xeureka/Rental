@@ -12,14 +12,14 @@ const connectDB = require('./models/connection')
 
 
 const app = express()
-app.use(express.json())
+
 
 if (!config.get('jwtPrivateKey')){
     console.error('FATAL ERROR: jwt private key is not defined. ')
     process.exit(1)
 }
 
-
+app.use(express.json())
 app.use('/api/geners',Genre)
 app.use('/api/customers',customer)
 app.use('/api/movies',Movies)

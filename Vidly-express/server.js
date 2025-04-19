@@ -1,18 +1,9 @@
 
 
-const myHonda = {
-    color: "red",
-    wheels: 4,
-    engine: {
-        cylinders: 4,
-        size: 2.2
-    }
-}
+// lets work authorization middleware
 
+// how can we enforce that only authenticated users can send or perform
+// certain requests and operations 
 
-myHonda.printCar = function() {
-    console.log(`My car has color ${this.color} and it is a ${this.wheels} drive`)
-}
+// to do such thing we need to read the reqest header
 
-
-myHonda.printCar()

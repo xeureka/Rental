@@ -17,7 +17,6 @@ router.post('/',async (req,res) => {
         return res.status(400).send('User Already registered !')
     }
 
-    // we wnat to add some kind of method to generate token
 
     try {
 

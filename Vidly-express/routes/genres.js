@@ -60,6 +60,7 @@ const validateGenre = (req,res,next) => {
 
 router.post('/',validateGenre,async (req,res) => {
 
+
     try {
 
         const newGenre = new Genre({

@@ -5,8 +5,15 @@ const mongoose = require('mongoose')
 const router = express.Router()
 const _ = require('lodash')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const config = require('config')
+const auth = require('../middleware/auth')
+
+
+
+router.get('/me',auth, async (req,res) => {
+    
+    const user = Users.findById(req.body._id)
+
+})
 
 
 router.post('/',async (req,res) => {
@@ -45,5 +52,3 @@ router.post('/',async (req,res) => {
 
 
 module.exports = router
-
-

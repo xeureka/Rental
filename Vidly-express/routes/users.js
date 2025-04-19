@@ -1,47 +1,35 @@
 
-const _ = require('lodash') 
-const express = require('express')
-const router = express.Router()
 const Users = require('../models/userSchema')
-const bcrypt = require('bcryptjs')
-const config = require('config')
-const jwt = require('jsonwebtoken')
+const express = require('express')
+const mongoose = require('mongoose')
+const router = express.Router()
+// api end point = /api/users
 
 
-router.post('/', async (req,res) => {
+router.post('/',async (req,res) => {
+
+    let user = Users.findOne({email: req.body.email})
+
+    if (user){
+        return res.status(400).send('User Already registered !')
+    }
 
     try {
 
-        let newUser = await Users.findOne({email: req.body.email})
-
-        if (newUser) return res.status(400).send('User already registered !')
-         
-        
-        newUser = new Users({
+        const newUser = new Users({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
         })
 
-
-        const salt = await bcrypt.genSalt(10)
-        newUser.password = await bcrypt.hash(newUser.password,salt)
-    
         await newUser.save()
-
-        // const token = jwt.sign({_id: user._id},config.get('jwtPrivateKey'))
-        const token = newUser.genereateAuthToken()
-
-    
-        res.header('x-auth-token',token).send(_.pick(newUser,['_id','name','email']))
-
+        res.send(newUser)
+        
     } catch (error) {
-        console.log('Error registering a user: ',error.message)
+        console.error('Error Registaering a user, ',error.message)
     }
 
 })
 
 
-
 module.exports = router
-

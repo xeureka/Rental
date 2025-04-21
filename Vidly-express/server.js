@@ -1,8 +1,6 @@
 
 /**
- * creating a user model
- * registering a users
- * using lodash
+
  * hashing passwords
  * authenticating users
  * tesing the authenticatioin

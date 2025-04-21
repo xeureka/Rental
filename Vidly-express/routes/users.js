@@ -25,7 +25,10 @@ router.post('/',async (req,res) => {
 
         await user.save()
 
-        res.send(user)
+        res.send({
+            name: req.body.name,
+            email: req.body.email
+        })
         
     } catch (error) {
         console.log('Error Registering a user: ',error.message)

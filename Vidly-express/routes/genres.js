@@ -7,8 +7,7 @@ const Genre = require('../models/genreSchema')
 const mongoose = require('mongoose')
 
 
-// Getting all the list of geners
-router.get('/',async (req,res) =>{
+ router.get('/',async (req,res) =>{
 
     try {
 
@@ -24,8 +23,7 @@ router.get('/',async (req,res) =>{
 
 
 
-// Getting a single genre
-router.get('/:id',async (req,res) =>{
+ router.get('/:id',async (req,res) =>{
     const id = req.params.id;
 
     try {
@@ -41,12 +39,10 @@ router.get('/:id',async (req,res) =>{
 })
 
 
-// genre input schema
 const genreSchema = Joi.object({
     name: Joi.string().min(2).max(15).required()
 })
 
-// genre validator middleware
 const validateGenre = (req,res,next) => {
 
     const {error} = genreSchema.validate(req.body);
@@ -78,7 +74,6 @@ router.post('/',auth,async (req,res) => {
 })
 
 
-// updating an existing genre (we will gonna use the findByIdAndUpdate)
 router.put('/:id',auth,async (req,res) =>{
 
     const id = req.params.id;
@@ -107,7 +102,6 @@ router.put('/:id',auth,async (req,res) =>{
 
 })
 
-// delete existing genre
 router.delete('/:id',auth, async (req,res) =>{
 
     const id = req.params.id;

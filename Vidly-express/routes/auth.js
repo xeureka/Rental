@@ -26,7 +26,6 @@ router.post('/',async (req,res) => {
             return res.status(400).send('Invalid username or password !')
         }
 
-        // when the user logged in we genereate jwt and send it to the body of the response
 
         const token = user.generateAuthToken()
 
@@ -40,5 +39,3 @@ router.post('/',async (req,res) => {
 
 
 module.exports = router
-
-// lets assume when the user register they are logged in too

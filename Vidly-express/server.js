@@ -1,9 +1,6 @@
 
 /**
 
- * hashing passwords
- * authenticating users
- * tesing the authenticatioin
  * JSON web tokens
  * generating auth tokens
  * storing secret keys in the .env variable
@@ -17,38 +14,35 @@
  * testing authorization
  */
 
-// lets see about hashing passwords for now
+// how to cmpare and verify password wors in bcrypt
+
+// lets work on comparing auth thing
+
 
 const bcrypt = require('bcryptjs')
 
-// Function to hash password
+// Fuction hashPassword
+
 
 async function hashPassword(password){
-
     const salt = await bcrypt.genSalt(10)
 
-    const hashed = await bcrypt.hash(password, salt)
+    const hashed = await bcrypt.hash(password,salt)
 
-    console.log(salt)
-    console.log(hash)
+    console.log(hashed)
 }
 
-async function verifyPassword(hash,salt){
+// Function to verify password
 
-    const isMatch = await bcrypt.compare('urk@2004',hash)
+async function verifyPassword(password,hashedPassword){
+    try {
+        const match = await bcrypt.compare(password,hashedPassword)
 
-    console.log('Password: ',isMatch)
-
+        console.log('Match: ',match)
+        
+    } catch (error) {
+        concole.error('Error verifying password: ',error.message)
+    }
 }
 
-
-// hashPassword('urka@2004')
-
-
-
-let hash = '$2b$10$v5KnhNMC/6xoTSUjjdLeO.Ch/0NmzAQuzQDo4u1fshdKf59aWxJmC'
-let salt = '$2b$10$auiPgIAlbH20PB0DvVrN6e'
-
-verifyPassword(hash,salt)
-
-// lets implement the above all logic to the mongoose code and lets store the hash password in the database
+verifyPassword('urka@2004','$2b$10$BEHNwnO9/0X3ho9.zRt0sez3P0UotPOVTH1F594oZCrHN8/hcdiDi')

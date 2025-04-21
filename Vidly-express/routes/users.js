@@ -5,6 +5,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Users = require('../models/userSchema')
 const router = express.Router()
+const bcrypt = require('bcryptjs')
 
 
 router.post('/',async (req,res) => {
@@ -17,17 +18,19 @@ router.post('/',async (req,res) => {
             return res.status(400).send('User Already Registred !!')
         }
 
+        const salt = await bcrypt.genSalt(10)
+
         user = new Users({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
+            password: await bcrypt.hash(req.body.password,salt)
         })
 
         await user.save()
 
         res.send({
-            name: req.body.name,
-            email: req.body.email
+            name: user.name,
+            email: user.email
         })
         
     } catch (error) {

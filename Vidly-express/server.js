@@ -1,9 +1,6 @@
 
 /**
 
- * JSON web tokens
- * generating auth tokens
- * storing secret keys in the .env variable
  * setting a response headers
  * encapsulating logic in mongoose
  * authorization middleware

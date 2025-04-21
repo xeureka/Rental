@@ -6,6 +6,8 @@ const mongoose = require('mongoose')
 const Users = require('../models/userSchema')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 
 router.post('/',async (req,res) => {
@@ -13,7 +15,7 @@ router.post('/',async (req,res) => {
     try {
 
         let user = await Users.findOne({email: req.body.email})
-
+ 
         if (user){
             return res.status(400).send('User Already Registred !!')
         }
@@ -28,10 +30,9 @@ router.post('/',async (req,res) => {
 
         await user.save()
 
-        // sending token 2 here
+        const token = jwt.sign({_id:user._id,email: user.email},config.get('jwtPrivateKey'))
 
-
-        res.send({
+        res.header('x-auth-token', token).send({
             name: user.name,
             email: user.email
         })

@@ -30,12 +30,9 @@ router.post('/',async (req,res) => {
 
         await user.save()
 
-        const token = jwt.sign({_id:user._id,email: user.email},config.get('jwtPrivateKey'))
-
-        res.header('x-auth-token', token).send({
-            name: user.name,
-            email: user.email
-        })
+        const token = user.generateToken()
+        
+        res.header('x-auth-token',token).send({name: user.name, email: user.email})
         
     } catch (error) {
         console.log('Error Registering a user: ',error.message)

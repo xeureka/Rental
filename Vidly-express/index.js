@@ -1,6 +1,7 @@
 
 require('dotenv').config()
 const express = require('express')
+const config = require('config')
 const Genre = require('./routes/genres')
 const customer = require('./routes/customer')
 const Movies = require('./routes/movies')
@@ -11,6 +12,11 @@ const connectDB = require('./models/connection')
 
 
 const app = express()
+
+if (!config.get('jwtPrivateKey')){
+    console.error('FATAL ERROR: jwtPrivateKey is not defined.')
+    process.exit(1)
+}
 
 
 

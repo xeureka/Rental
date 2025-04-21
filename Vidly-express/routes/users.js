@@ -28,6 +28,9 @@ router.post('/',async (req,res) => {
 
         await user.save()
 
+        // sending token 2 here
+
+
         res.send({
             name: user.name,
             email: user.email

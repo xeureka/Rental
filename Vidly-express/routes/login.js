@@ -4,6 +4,8 @@ const Users = require('../models/userSchema')
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const config = require('config')
 
 
 router.post('/',async (req,res) => {
@@ -22,7 +24,9 @@ router.post('/',async (req,res) => {
             return res.send(400).status('Invalid email or password')
         }
 
-        res.send(true)
+        const token = jwt.sign({_id:user._id,email: user.email},config.get('jwtPrivateKey'))
+   
+        res.send(token)
         
 
         

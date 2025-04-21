@@ -25,7 +25,7 @@ app.use('/api/customers',customer)
 app.use('/api/movies',Movies)
 app.use('/api/rentals',Rentals)
 app.use('/api/users',Users)
-app.use('/api/auth',auth)
+// app.use('/api/auth',auth)
 
 connectDB()
 

@@ -1,9 +1,9 @@
 
-const hwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const config = require('config')
 
 
-function auth(req,res,auth){
+function auth(req,res,next){
 
     const token = req.header('x-auth-token')
 

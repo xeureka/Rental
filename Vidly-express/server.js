@@ -1,9 +1,9 @@
 
-/**
-* authorization middleware
+/*
  * pretecting routes
  * Getting the current user
- * loggin ou the user
+ * logging out the users
  * role based authorization
  * testing authorization
  */
+

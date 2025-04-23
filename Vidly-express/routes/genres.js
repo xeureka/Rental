@@ -3,7 +3,7 @@ const auth = require('../middleware/auth')
 const express = require('express')
 const router = express.Router()
 const Joi = require('joi')
-const Genre = require('../models/genreSchema')
+const {Genre} = require('../models/genreSchema')
 const mongoose = require('mongoose')
 
 
@@ -37,22 +37,6 @@ const mongoose = require('mongoose')
     }
 
 })
-
-
-const genreSchema = Joi.object({
-    name: Joi.string().min(2).max(15).required()
-})
-
-const validateGenre = (req,res,next) => {
-
-    const {error} = genreSchema.validate(req.body);
-
-    if (error){
-        return res.status(400).send({message: error.details[0].message})
-    }
-    next()
-}
-
 
 router.post('/',auth,async (req,res) => {
 

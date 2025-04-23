@@ -1,30 +1,28 @@
 
+const hwt = require('jsonwebtoken')
 const config = require('config')
-const jwt = require('jsonwebtoken')
 
 
-function auth(req,res,next) {
+function auth(req,res,auth){
 
-    // we get the token
     const token = req.header('x-auth-token')
 
     if (!token){
-        return res.status(401).send('Access deines. No token provided')
+        return res.status(401).send('Access Deined. No token Provided !!')
     }
 
     try {
-        
         const decoded = jwt.verify(token,config.get('jwtPrivateKey'))
 
-        req.user = decoded
+        req.user = decoded;
+
+        res.send(true)
 
         next()
 
-
     } catch (error) {
-        res.status(400).send('Invalid token.')
-    }
-
+        return res.status(400).send('Invalid token.')
+    }    
 }
 
 module.exports = auth

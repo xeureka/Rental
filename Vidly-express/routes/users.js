@@ -1,6 +1,4 @@
 
-
-
 const express = require('express')
 const mongoose = require('mongoose')
 const Users = require('../models/userSchema')
@@ -8,7 +6,13 @@ const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const auth = require('../middleware/auth')
 
+
+router.get('/me',auth,async (req,res) =>{
+    const user = await Users.findById(req.user._id).select('-password')
+    res.send(user)
+})
 
 router.post('/',async (req,res) => {
 

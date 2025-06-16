@@ -15,7 +15,7 @@ const movieSchema = new mongoose.Schema({
         required: true
     },
     posterImage: {
-        type: Buffer,
+        type: String , // later will be changed to buffer to add the image
         required: true
     },
     showTime: {
@@ -23,8 +23,6 @@ const movieSchema = new mongoose.Schema({
         required: true        
     }
     
-    // number in stock
-    // daily rental date
 })
 
 

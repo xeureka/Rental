@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 4000
 
 app.use(express.json())
 app.use('/api/movies', movieRoutes);
-app.use('/api/reservations', reservationRoutes);
+// app.use('/api/reservations', reservationRoutes);
 
 connectDB()
 app.listen(PORT, () =>{

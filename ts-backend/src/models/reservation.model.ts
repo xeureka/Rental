@@ -13,5 +13,4 @@ const reservationSchema = new mongoose.Schema({
     }
 })
 
-
 export const Reservations = mongoose.model('Reservation',reservationSchema)

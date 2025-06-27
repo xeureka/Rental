@@ -1,16 +1,16 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const showTimeSchema = new mongoose.Schema({
-    date: {
-        type: Date
+    date:{
+        type: String
     },
     time: {
         type: Date
     },
-    availableSeats: {
+    availableSeats:{
         type: [String]
     },
-    reservedSeats: {
+    reservedSeats :{
         type: [String]
     }
 })
@@ -18,8 +18,9 @@ const showTimeSchema = new mongoose.Schema({
 const movieSchema = new mongoose.Schema({
     title: String,
     description: String,
-    poster: String,
-    showtimes: [showTimeSchema]
+    poseter: String,
+    showtime: [showTimeSchema]
 })
+
 
 export const Movies = mongoose.model('Movie',movieSchema)

@@ -19,7 +19,7 @@ const movieSchema = new mongoose.Schema({
     title: String,
     description: String,
     poster: String,
-    showtime: [showTimeSchema]
+    showtimes: [showTimeSchema]
 })
 
 

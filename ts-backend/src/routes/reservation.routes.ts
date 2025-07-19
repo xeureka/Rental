@@ -1,7 +1,7 @@
 import express from 'express';
 import {
-  getMoviesByDate,
   reserveSeats,
+  getMoviesByDate,
   getUserReservations,
   cancelReservation,
   getAdminStats
@@ -9,8 +9,8 @@ import {
 
 const router = express.Router();
 
+router.post('/reserve', reserveSeats);         
 router.get('/date/:date', getMoviesByDate);
-router.post('/reserve', reserveSeats);
 router.get('/user/:userId', getUserReservations);
 router.delete('/:reservationId', cancelReservation);
 router.get('/admin/stats', getAdminStats);

@@ -1,17 +1,18 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { connectDB } from './utils/db.connect'
-import movieRoutes from './routes/movie.route'
+import movieRoute from './routes/movie.routes'
+
 dotenv.config()
 
-
 const app = express()
-const PORT = process.env.PORT || 4000
 
 app.use(express.json())
-app.use('/api/movies',movieRoutes)
+app.use('/api/movies', movieRoute)
 
+
+const PORT = process.env.PORT || 4000
 connectDB()
 app.listen(PORT, () => {
-    console.log(`server running at port ${PORT}`)
-})
+  console.log(`Server is running at http://localhost:${PORT}`);
+});

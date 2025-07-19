@@ -7,10 +7,10 @@ const showTimeSchema = new mongoose.Schema({
     time: {
         type: Date
     },
-    availableSeats:{
+    availableSeats: {
         type: [String]
     },
-    reservedSeats :{
+    reservedSeats: {
         type: [String]
     }
 })
@@ -18,9 +18,9 @@ const showTimeSchema = new mongoose.Schema({
 const movieSchema = new mongoose.Schema({
     title: String,
     description: String,
-    poseter: String,
+    poster: String,
     showtime: [showTimeSchema]
 })
 
 
-export const Movies = mongoose.model('Movie',movieSchema)
+export const Movies = mongoose.model('Movie', movieSchema)
